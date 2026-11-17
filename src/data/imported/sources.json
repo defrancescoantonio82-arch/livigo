@@ -1,0 +1,110 @@
+[
+  {
+    "id": "perego-tariffe-a061",
+    "title": "Perego · A061 · matrice tariffaria",
+    "path": "/orari/perego-tariffe-a061.pdf",
+    "originalFilename": "1-liane-a061-6a9d25add0c81113507957.pdf",
+    "sha256": "fc35aba6f80c0b09b873a7aaee79687bf61367098f8ccfc08e98a69bb972c287",
+    "kind": "fare-matrix",
+    "validFrom": null,
+    "validTo": null,
+    "receivedOn": "2026-11-17",
+    "remoteUrl": null
+  },
+  {
+    "id": "perego-tariffe-a060",
+    "title": "Perego · A060 · matrice tariffaria",
+    "path": "/orari/perego-tariffe-a060.pdf",
+    "originalFilename": "2-liane-a060-6a9d25812afba440178302.pdf",
+    "sha256": "00ea1bd849b910c85ce52c812993b6051cb62269b8ed4011d6821d259f06f6b7",
+    "kind": "fare-matrix",
+    "validFrom": null,
+    "validTo": null,
+    "receivedOn": "2026-11-17",
+    "remoteUrl": null
+  },
+  {
+    "id": "blu",
+    "title": "Silvestri · Blu · orario estivo",
+    "path": "/orari/silvestri-blu-2026-08-31.pdf",
+    "originalFilename": "3-2026.08.31_Blu.pdf",
+    "sha256": "85139e1212f6a8d7dd992f88770e26a1f9aee47e8054592d88f6c02582e9dc2e",
+    "kind": "urban-timetable",
+    "validFrom": "2026-08-31",
+    "validTo": null,
+    "receivedOn": "2026-11-17",
+    "remoteUrl": null
+  },
+  {
+    "id": "verde",
+    "title": "Silvestri · Verde · orario estivo",
+    "path": "/orari/silvestri-verde-2026-08-31.pdf",
+    "originalFilename": "4-2026.08.31_Verde.pdf",
+    "sha256": "4cab95596491e567383629dccdcab0579c6d023a242031ad69a53dabc47a18c3",
+    "kind": "urban-timetable",
+    "validFrom": "2026-08-31",
+    "validTo": null,
+    "receivedOn": "2026-11-17",
+    "remoteUrl": null
+  },
+  {
+    "id": "trepalle",
+    "title": "Silvestri · Trepalle · orario estivo",
+    "path": "/orari/silvestri-trepalle-2026-08-31.pdf",
+    "originalFilename": "5-2026.08.31_Trepalle.pdf",
+    "sha256": "a9403cbea0b7f8937e181ff7ad3ea44fa5a770bac79fbdc2d8fc7140cb8778e0",
+    "kind": "urban-timetable",
+    "validFrom": "2026-08-31",
+    "validTo": null,
+    "receivedOn": "2026-11-17",
+    "remoteUrl": null
+  },
+  {
+    "id": "perego-a061",
+    "title": "Perego · A061 · Tirano–Aprica–Edolo",
+    "path": "/orari/perego-orari-a061-inverno-2026-2027.pdf",
+    "originalFilename": "6-libretto-orario-perego-inv-a061-6aa4288beee24095493374.pdf",
+    "sha256": "7eb4017ceea1323da256ea988e7b6b729ab42c8ef7670407a865c2f05e432668",
+    "kind": "other-timetable",
+    "validFrom": "2026-09-14",
+    "validTo": "2027-06-08",
+    "receivedOn": "2026-11-17",
+    "remoteUrl": null
+  },
+  {
+    "id": "perego-a066",
+    "title": "Perego · A066 · Vervio–Mazzo–Tirano",
+    "path": "/orari/perego-orari-a066-inverno-2026-2027.pdf",
+    "originalFilename": "7-libretto-orario-perego-inv-a066-6aa107df4138e646498800.pdf",
+    "sha256": "c72e69ffae536b04a54b2d45c82978ccc6c2a6351cf6e4f79c9d64278d4ab919",
+    "kind": "other-timetable",
+    "validFrom": "2026-09-14",
+    "validTo": "2027-06-08",
+    "receivedOn": "2026-11-17",
+    "remoteUrl": null
+  },
+  {
+    "id": "perego-a070",
+    "title": "Perego · A070 · Bormio–Sondalo–Tirano",
+    "path": "/orari/perego-orari-a070-inverno-2026-2027.pdf",
+    "originalFilename": "libretto-orario-perego-inv-a070-6aba3757d61e9769777004.pdf",
+    "sha256": "dd75106ee85abaee93e8685c62008d78f08821014204d6c971981afedc95c591",
+    "kind": "corridor-timetable",
+    "validFrom": "2026-09-14",
+    "validTo": "2027-06-08",
+    "receivedOn": "2026-11-17",
+    "remoteUrl": "https://www.busperego.com/uploads/route/hoursDaily/libretto-orario-perego-inv-a070-6aba3757d61e9769777004.pdf"
+  },
+  {
+    "id": "perego-a072",
+    "title": "Perego · A072 · Livigno–Valdidentro–Bormio",
+    "path": "/orari/perego-orari-a072-inverno-2026-2027.pdf",
+    "originalFilename": "libretto-orario-perego-inv-a072-6aba376cacb1e008739636.pdf",
+    "sha256": "1db32630ba2aa7e07d841be4ef8f1bb928827d78a16199d18a5e136197497349",
+    "kind": "corridor-timetable",
+    "validFrom": "2026-09-14",
+    "validTo": "2027-06-08",
+    "receivedOn": "2026-11-17",
+    "remoteUrl": "https://www.busperego.com/uploads/route/hoursDaily/libretto-orario-perego-inv-a072-6aba376cacb1e008739636.pdf"
+  }
+]

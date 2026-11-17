@@ -1,0 +1,23 @@
+[
+  {
+    "line": "blu",
+    "rows": 43,
+    "trips": 18,
+    "cells": 764,
+    "sha256": "85139e1212f6a8d7dd992f88770e26a1f9aee47e8054592d88f6c02582e9dc2e"
+  },
+  {
+    "line": "verde",
+    "rows": 47,
+    "trips": 16,
+    "cells": 736,
+    "sha256": "4cab95596491e567383629dccdcab0579c6d023a242031ad69a53dabc47a18c3"
+  },
+  {
+    "line": "trepalle",
+    "rows": 32,
+    "trips": 16,
+    "cells": 220,
+    "sha256": "a9403cbea0b7f8937e181ff7ad3ea44fa5a770bac79fbdc2d8fc7140cb8778e0"
+  }
+]

@@ -1,0 +1,146 @@
+[
+  {
+    "line": "a070",
+    "page": 2,
+    "columns": 20,
+    "completeTerminalTrips": 10
+  },
+  {
+    "line": "a070",
+    "page": 3,
+    "columns": 16,
+    "completeTerminalTrips": 11
+  },
+  {
+    "line": "a070",
+    "page": 4,
+    "columns": 20,
+    "completeTerminalTrips": 13
+  },
+  {
+    "line": "a070",
+    "page": 5,
+    "columns": 16,
+    "completeTerminalTrips": 9
+  },
+  {
+    "line": "a070",
+    "page": 6,
+    "columns": 20,
+    "completeTerminalTrips": 9
+  },
+  {
+    "line": "a070",
+    "page": 7,
+    "columns": 9,
+    "completeTerminalTrips": 9
+  },
+  {
+    "line": "a070",
+    "page": 8,
+    "columns": 20,
+    "completeTerminalTrips": 11
+  },
+  {
+    "line": "a070",
+    "page": 9,
+    "columns": 8,
+    "completeTerminalTrips": 6
+  },
+  {
+    "line": "a070",
+    "page": 10,
+    "columns": 19,
+    "completeTerminalTrips": 14
+  },
+  {
+    "line": "a070",
+    "page": 11,
+    "columns": 19,
+    "completeTerminalTrips": 14
+  },
+  {
+    "line": "a070",
+    "page": 12,
+    "columns": 17,
+    "completeTerminalTrips": 14
+  },
+  {
+    "line": "a070",
+    "page": 13,
+    "columns": 16,
+    "completeTerminalTrips": 14
+  },
+  {
+    "line": "a070",
+    "page": 14,
+    "columns": 15,
+    "completeTerminalTrips": 13
+  },
+  {
+    "line": "a070",
+    "page": 15,
+    "columns": 13,
+    "completeTerminalTrips": 12
+  },
+  {
+    "line": "a072",
+    "page": 2,
+    "columns": 19,
+    "completeTerminalTrips": 10
+  },
+  {
+    "line": "a072",
+    "page": 3,
+    "columns": 19,
+    "completeTerminalTrips": 11
+  },
+  {
+    "line": "a072",
+    "page": 4,
+    "columns": 19,
+    "completeTerminalTrips": 10
+  },
+  {
+    "line": "a072",
+    "page": 5,
+    "columns": 19,
+    "completeTerminalTrips": 12
+  },
+  {
+    "line": "a072",
+    "page": 6,
+    "columns": 16,
+    "completeTerminalTrips": 10
+  },
+  {
+    "line": "a072",
+    "page": 7,
+    "columns": 16,
+    "completeTerminalTrips": 10
+  },
+  {
+    "line": "a072",
+    "page": 8,
+    "columns": 16,
+    "completeTerminalTrips": 10
+  },
+  {
+    "line": "a072",
+    "page": 9,
+    "columns": 16,
+    "completeTerminalTrips": 10
+  },
+  {
+    "line": "a072",
+    "page": 10,
+    "columns": 14,
+    "completeTerminalTrips": 9
+  },
+  {
+    "line": "a072",
+    "page": 11,
+    "columns": 14,
+    "completeTerminalTrips": 8
+  }
+]
