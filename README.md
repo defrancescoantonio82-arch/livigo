@@ -4,14 +4,14 @@ Assistente per il trasporto pubblico locale di Livigno. Interfaccia responsive i
 
 ## Avvio
 
-Richiede Node.js >= 22.18 e npm.
+Richiede Node.js 24.x e npm. Con nvm: `nvm use` (versione indicata in `.nvmrc`).
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Apri http://localhost:3000. Per produzione: `npm run build` e `npm start`. Il repository non pubblica automaticamente un sito: può essere importato in un hosting compatibile con Next.js.
+Apri http://localhost:3000. Per produzione: `npm run build` e `npm start`. La configurazione Vercel è inclusa. Per ottenere un URL pubblico HTTPS direttamente da iPhone, segui la [guida Vercel e Safari](docs/deployment-vercel.md).
 
 ## Dati ufficiali integrati
 
@@ -63,6 +63,8 @@ Il filtro è una consultazione delle tabelle: non segue automaticamente l'ora co
 - `tests/`: tredici test su fonti, integrità, ricerca, condizioni e combinazioni.
 
 ## Controlli
+
+`npm run verify` esegue lint, generazione dei tipi Next.js, typecheck, test e build. È anche il comando di build configurato per Vercel: un controllo fallito interrompe il deployment.
 
 ```sh
 npm run lint
