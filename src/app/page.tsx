@@ -1,0 +1,29 @@
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import { dataset, lines } from '@/data/transport';
+import { findJourneys, formatTime } from '@/lib/journeys';
+export default function Home() {
+  const [from, setFrom] = useState('demo-A');
+  const [to, setTo] = useState('demo-C');
+  const [time, setTime] = useState('10:00');
+  const [coffee, setCoffee] = useState(false);
+  const [pause, setPause] = useState(20);
+  const [geo, setGeo] = useState('');
+  const [hours, minutes] = time.split(':').map(Number);
+  const earliest = hours * 60 + minutes + (coffee ? pause : 0);
+  const results = Number.isFinite(earliest) ? findJourneys(dataset, from, to, earliest) : [];
+  function locate() {
+    if (!navigator.geolocation) { setGeo('Geolocalizzazione non supportata dal browser.'); return; }
+    setGeo('Richiesta della posizione…');
+    navigator.geolocation.getCurrentPosition(() => setGeo('Posizione rilevata. La fermata più vicina sarà disponibile con le coordinate ufficiali. La posizione non viene salvata.'), () => setGeo('Posizione non disponibile o autorizzazione negata. Puoi selezionare le fermate manualmente.'), { timeout: 10000 });
+  }
+  return <main>
+    <header><Link className="brand" href="/">LIVIGO<span>↗</span></Link><span className="location">LIVIGNO · MOBILITÀ LOCALE</span><span className="demo-pill">Versione demo</span></header>
+    <section className="hero"><div className="eyebrow">IL TUO PROSSIMO PASSO, PIÙ SEMPLICE</div><h1>Goditi Livigno.<br/><span>Al viaggio pensiamo noi.</span></h1><p>Trova la tua prossima corsa. E prenditi il tempo per un caffè.</p><div className="mountains" aria-hidden="true">╱╲ &nbsp; ╱╲ &nbsp; ╱╲</div></section>
+    <aside className="notice"><strong>Dati dimostrativi.</strong> Fermate e orari sono esempi fittizi, non utilizzabili per viaggiare. Orari ufficiali Silvestri Bus in attesa di integrazione.</aside>
+    <div className="columns"><section className="panel planner"><div className="eyebrow">ORGANIZZA IL TUO SPOSTAMENTO</div><h2>Dove vuoi andare?</h2><label htmlFor="from">Partenza</label><select id="from" value={from} onChange={e => setFrom(e.target.value)}>{dataset.stops.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select><button className="swap" onClick={() => { setFrom(to); setTo(from); }} aria-label="Scambia partenza e destinazione">⇅ Scambia fermate</button><label htmlFor="to">Destinazione</label><select id="to" value={to} onChange={e => setTo(e.target.value)}>{dataset.stops.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}</select><label htmlFor="time">Orario di riferimento demo</label><input id="time" type="time" required value={time} onChange={e => setTime(e.target.value)}/><p className="hint">Simulazione giornaliera, fuso Europe/Rome. Non segue l’ora corrente.</p><div className="coffee"><label className="check"><input type="checkbox" checked={coffee} onChange={e => setCoffee(e.target.checked)}/> ☕ Prima, una pausa al bar</label><p>Riparti con calma, quando sei pronto.</p>{coffee && <label>Pausa in minuti<select value={pause} onChange={e => setPause(Number(e.target.value))}>{[10,20,30,45,60].map(n => <option key={n} value={n}>{n} minuti</option>)}</select></label>}</div><p className="hint">Le corse si aggiornano automaticamente. La pausa si calcola alla partenza; nessun bar reale è associato.</p></section>
+    <section className="departures" aria-labelledby="departures"><div className="results-heading"><div><div className="eyebrow">IL TUO VIAGGIO</div><h2 id="departures">Prossime corse demo</h2></div><span className="count">{results.length} corse</span></div><p className="hint">{coffee ? `Dopo la pausa, dalle ${formatTime(earliest)}` : `A partire dalle ${time || '—'}`} · solo collegamenti diretti</p><div aria-live="polite">{from === to ? <div className="panel empty">Scegli due fermate diverse.</div> : results.length === 0 ? <div className="panel empty">Nessuna corsa demo per questa selezione. Prova da A verso C alle 10:00. I percorsi inversi non sono inclusi nella demo.</div> : results.map((r, i) => { const line = lines.find(l => l.id === r.lineId)!; return <article className="trip" key={r.id}><div className="trip-top"><span className="line" style={{ background: line.color }}>Linea {line.name}</span><span className="hint">{i === 0 ? 'Prima disponibile · ' : ''}Esempio fittizio</span></div><div className="times"><div><strong>{formatTime(r.departure)}</strong><small>Partenza</small></div><div className="duration">{r.arrival-r.departure} min <span>────────→</span></div><div><strong>{formatTime(r.arrival)}</strong><small>Arrivo</small></div><div className="wait"><strong>{r.wait} min</strong><small>Attesa{coffee ? ' dopo pausa' : ''}</small></div></div><div className="trip-footer">Programmato demo <span>Tempo reale non disponibile</span></div></article>; })}</div></section></div>
+    <section className="bottom-grid"><div className="panel"><div className="eyebrow">ESPLORA, CON CALMA</div><h2>La mappa, prossimamente.</h2><p>Fermate e percorsi appariranno qui dopo la verifica delle coordinate ufficiali.</p><button className="primary" onClick={locate}>⌖ Usa la mia posizione</button><p role="status" className="hint">{geo || 'Attivazione facoltativa. Richiede il consenso del browser e HTTPS o localhost.'}</p></div><div className="panel information"><div className="eyebrow">INFORMAZIONI TRASPARENTI</div><h2>Sai sempre cosa stai guardando.</h2><p><strong>Programmato ufficiale</strong><br/>Sarà ricavato dai PDF verificati, con fonte e validità.</p><p><strong>Tempo reale</strong><br/>Non collegato. Nessuna posizione autobus o ritardo stimato.</p><p><strong>Adesso: modalità demo</strong><br/>Tutti i risultati sono simulati e chiaramente indicati.</p></div></section><footer><span className="brand">LIVIGO ↗</span><p>Più tempo per vivere la montagna.</p><small>Prototipo indipendente · Non è un servizio ufficiale Silvestri Bus.</small></footer>
+  </main>;
+}
