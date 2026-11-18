@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "LIVIGO · Muoviti a Livigno",
+  title: "LIVIGO · Scopri. Muoviti. Vivi Livigno.",
   description:
-    "Orari programmati Silvestri di Livigno da PDF ufficiali. Blu, Verde e Trepalle. Nessun dato in tempo reale.",
+    "Scopri Livigno e organizza i tuoi spostamenti con gli orari programmati degli autobus. Nessun dato in tempo reale.",
 };
 export default function RootLayout({
   children,
