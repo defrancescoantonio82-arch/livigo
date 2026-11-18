@@ -8,7 +8,22 @@ export default function DiscoverWelcome() {
   const [ready, setReady] = useState(false);
   const [step, setStep] = useState(0);
   const [position, setPosition] = useState("Posizione non richiesta");
-  useEffect(() => { try { const saved = localStorage.getItem("livigo-discover-v1"); if (saved) { setPrefs(JSON.parse(saved)); setStep(4); } } catch {} setReady(true); }, []);
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      try {
+        const saved = localStorage.getItem("livigo-discover-v1");
+        if (saved) {
+          const parsed: Prefs = JSON.parse(saved);
+          setPrefs(parsed);
+          setStep(4);
+        }
+      } catch {
+        // Continue with the default onboarding when storage is unavailable.
+      }
+      setReady(true);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
   function finish() { try { localStorage.setItem("livigo-discover-v1", JSON.stringify(prefs)); } catch {} setStep(4); }
   function locate() { if (!navigator.geolocation) { setPosition("GPS non supportato"); return; } setPosition("Ricerca posizione…"); navigator.geolocation.getCurrentPosition(() => setPosition("Posizione autorizzata. Le fermate vicine saranno disponibili dopo la verifica delle coordinate."), () => setPosition("Posizione non disponibile: puoi continuare senza GPS."), { timeout: 10000 }); }
   if (!ready) return null;
