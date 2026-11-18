@@ -10,14 +10,19 @@ export default function Home() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [time, setTime] = useState("14:00");
+  const [useNow, setUseNow] = useState(true);
+  const [nowTime, setNowTime] = useState<string | null>(null);
+  const [returnTime, setReturnTime] = useState("18:00");
+  const [showReturn, setShowReturn] = useState(false);
   const [lineId, setLineId] = useState("");
   const [school, setSchool] = useState(false);
   const [coffee, setCoffee] = useState(false);
   const [pause, setPause] = useState(20);
   const [geo, setGeo] = useState("");
-  const [hours, minutes] = time.split(":").map(Number);
+  const effectiveTime = useNow && nowTime ? nowTime : time;
+  const [hours, minutes] = effectiveTime.split(":").map(Number);
   const earliest = hours * 60 + minutes + (coffee ? pause : 0);
-  const validTime = /^\d{2}:\d{2}$/.test(time) && Number.isFinite(earliest);
+  const validTime = /^\d{2}:\d{2}$/.test(effectiveTime) && Number.isFinite(earliest);
   const fromStop = dataset.stops.find((s) => s.name.toLocaleLowerCase("it").trim() === from.toLocaleLowerCase("it").trim());
   const toStop = dataset.stops.find((s) => s.name.toLocaleLowerCase("it").trim() === to.toLocaleLowerCase("it").trim());
   const results = validTime && fromStop && toStop
@@ -26,6 +31,9 @@ export default function Home() {
         lineId,
       })
     : [];
+  const [returnHours, returnMinutes] = returnTime.split(":").map(Number);
+  const returnResults = showReturn && fromStop && toStop && /^\d{2}:\d{2}$/.test(returnTime)
+    ? findJourneys(dataset, toStop.id, fromStop.id, returnHours * 60 + returnMinutes, {includeSchoolOnly:school}) : [];
   const stopOptions = dataset.stops.map((s) => (
     <option key={s.id} value={s.name} />
   ));
@@ -36,6 +44,8 @@ export default function Home() {
     : [];
 
 
+  function localClock() { return new Intl.DateTimeFormat("en-GB", {timeZone:"Europe/Rome",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(new Date()); }
+  function refreshNow() { setNowTime(localClock()); setUseNow(true); }
   function locate() {
     if (!navigator.geolocation) {
       setGeo("Geolocalizzazione non supportata dal browser.");
@@ -70,7 +80,7 @@ export default function Home() {
         <a href="#perego">Livigno–Tirano</a>
         <a href="#fonti">PDF e fonti</a>
       </nav>
-      <DiscoverWelcome />
+      <div className="discover-collapsed"><DiscoverWelcome /></div>
       <section className="hero">
         <div className="eyebrow">IL TUO PROSSIMO PASSO, PIÙ SEMPLICE</div>
         <h1>
@@ -94,7 +104,7 @@ export default function Home() {
         <section className="panel planner">
           <div className="eyebrow">ORGANIZZA IL TUO SPOSTAMENTO</div>
           <h2>Dove vuoi andare?</h2>
-          <label htmlFor="line">Linea</label>
+          <details className="advanced-filters"><summary>Filtri avanzati · linea</summary><label htmlFor="line">Linea</label>
           <select
             id="line"
             value={lineId}
@@ -106,7 +116,7 @@ export default function Home() {
                 {l.name}
               </option>
             ))}
-          </select>
+          </select></details>
           <label htmlFor="from">Da dove parti?</label>
           <input id="from" type="search" list="livigo-stops" value={from}
             placeholder="Scrivi la fermata di partenza"
@@ -119,14 +129,17 @@ export default function Home() {
             autoComplete="off" onChange={(e) => setTo(e.target.value)} />
           <datalist id="livigo-stops">{stopOptions}</datalist>
           <p className="hint">Scrivi il nome e scegli una fermata suggerita. «fr.» indica il lato opposto della strada.</p>
+          <div className="quick-time"><button className={useNow ? "active" : ""} onClick={refreshNow}>Parti adesso</button><button className={!useNow ? "active" : ""} onClick={() => setUseNow(false)}>Scegli orario</button></div>
           <label htmlFor="time">Partenze dalle</label>
           <input
             id="time"
             type="time"
             required
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
+            value={effectiveTime}
+            onFocus={() => setUseNow(false)}
+            onChange={(e) => {setUseNow(false);setTime(e.target.value);}}
           />
+          {useNow && <button className="refresh-time" onClick={refreshNow}>Aggiorna ora di partenza</button>}
           <p className="hint">
             Ora locale di Livigno (Europe/Rome), selezionata manualmente.
             Consulta le tabelle: non è una previsione di arrivo e non verifica
@@ -172,6 +185,7 @@ export default function Home() {
               </label>
             )}
           </div>
+          <div className="return-planner"><label className="check"><input type="checkbox" checked={showReturn} onChange={(e)=>setShowReturn(e.target.checked)}/> ↩ Cerca anche il ritorno</label>{showReturn && <><label htmlFor="return-time">Ritorno dalle</label><input id="return-time" type="time" value={returnTime} onChange={(e)=>setReturnTime(e.target.value)}/></>}</div>
           <p className="hint">
             Il filtro si aggiorna automaticamente. La pausa si calcola alla
             partenza; nessun bar reale è associato.
@@ -189,7 +203,7 @@ export default function Home() {
             {validTime
               ? coffee
                 ? `Dopo la pausa, dalle ${formatTime(earliest)}`
-                : `A partire dalle ${time}`
+                : `A partire dalle ${effectiveTime}`
               : "Seleziona un orario"}{" "}
             · solo collegamenti diretti nelle tabelle allegate
           </p>
@@ -201,16 +215,19 @@ export default function Home() {
                 La pausa termina il giorno successivo. Seleziona un orario
                 precedente: la ricerca non estende le corse al giorno seguente.
               </div>
-            ) : !fromStop || !toStop ? (\n              <div className="panel empty">Scrivi partenza e destinazione e seleziona i nomi completi suggeriti. Nessuna ricerca viene effettuata finché entrambe le fermate non sono riconosciute.</div>\n            ) : fromStop.id === toStop.id ? (
+            ) : !fromStop || !toStop ? (
+              <div className="panel empty">Scrivi partenza e destinazione e seleziona i nomi completi suggeriti. Nessuna ricerca viene effettuata finché entrambe le fermate non sono riconosciute.</div>
+            ) : fromStop.id === toStop.id ? (
               <div className="panel empty">Scegli due fermate diverse.</div>
             ) : results.length === 0 ? (
               <div className="panel empty">
                 Nessuna corsa diretta trovata nelle tabelle per questi filtri.
                 Prova un altro orario o un’altra linea. Non vengono calcolati
-                cambi o collegamenti del giorno successivo.\n                {nearbyAlternatives.length > 0 && <div className="stop-alternatives"><strong>Forse intendevi il lato opposto?</strong>{nearbyAlternatives.map((s) => <button key={s.id} onClick={() => setTo(s.name)}>Cerca per {s.name}</button>)}</div>}
+                cambi o collegamenti del giorno successivo.
+                {nearbyAlternatives.length > 0 && <div className="stop-alternatives"><strong>Forse intendevi il lato opposto?</strong>{nearbyAlternatives.map((s) => <button key={s.id} onClick={() => setTo(s.name)}>Cerca per {s.name}</button>)}</div>}
               </div>
             ) : (
-              results.map((r, i) => {
+              results.slice(0, 5).map((r, i) => {
                 const line = lines.find((l) => l.id === r.lineId)!;
                 const source = sources.find((s) => s.id === r.sourceId)!;
                 return (
@@ -268,6 +285,7 @@ export default function Home() {
           </div>
         </section>
       </div>
+      {showReturn && <section className="panel return-results" aria-live="polite"><div className="eyebrow">VIAGGIO DI RITORNO</div><h2>{toStop?.name ?? "Destinazione"} → {fromStop?.name ?? "Partenza"}</h2>{!fromStop || !toStop ? <p>Seleziona prima le due fermate.</p> : returnResults.length === 0 ? <p>Nessuna corsa diretta programmata per il ritorno dopo le {returnTime}. Controlla la direzione o prova un altro orario.</p> : returnResults.slice(0,5).map(r=><article className="return-trip" key={r.id}><strong>{formatTime(r.departure)} → {formatTime(r.arrival)}</strong><span>Linea {lines.find(l=>l.id===r.lineId)?.name} · {r.arrival-r.departure} min · programmata, non in tempo reale</span></article>)}</section>}
       <PeregoPlanner />
       <section className="bottom-grid">
         <div className="panel">
