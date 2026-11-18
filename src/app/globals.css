@@ -24,7 +24,7 @@ header {
   align-items: center;
   gap: 24px;
   padding: 27px 0;
-  border-bottom: 1px solid #dce4dc;
+  border-bottom: 1px solid #d5e2ee;
 }
 .brand {
   font-size: 27px;
@@ -34,7 +34,7 @@ header {
   text-decoration: none;
 }
 .brand span {
-  color: #a3bd59;
+  color: #f4c928;
   margin-left: 6px;
 }
 .location,
@@ -45,7 +45,7 @@ header {
 }
 .demo-pill {
   margin-left: auto;
-  background: #e9eddc;
+  background: #fff0ad;
   border-radius: 30px;
   padding: 9px 15px;
   font-size: 12px;
@@ -64,7 +64,7 @@ header {
   margin: 20px 0;
 }
 .hero h1 span {
-  color: #6b8173;
+  color: #07549c;
 }
 .hero p {
   font-size: 16px;
@@ -76,7 +76,7 @@ header {
   bottom: 10px;
   font-size: 110px;
   letter-spacing: -24px;
-  color: #d9e3d4;
+  color: #d8e8f7;
   transform: scaleY(1.4);
 }
 .notice {
@@ -98,7 +98,7 @@ header {
 .panel,
 .trip {
   background: white;
-  border: 1px solid #dfe7df;
+  border: 1px solid #d5e2ee;
   border-radius: 18px;
   padding: 26px;
 }
@@ -118,9 +118,9 @@ select,
 input[type="time"] {
   width: 100%;
   padding: 14px;
-  border: 1px solid #cedbd1;
+  border: 1px solid #c5d9ed;
   border-radius: 9px;
-  background: #fafcf8;
+  background: #ffffff;
   color: var(--ink);
   font-size: 15px;
 }
@@ -150,7 +150,7 @@ a:focus-visible {
   line-height: 1.6;
 }
 .coffee {
-  background: #f0f4e9;
+  background: #ffffff;
   border-radius: 12px;
   padding: 1px 15px 12px;
   margin-top: 22px;
@@ -180,7 +180,7 @@ a:focus-visible {
 }
 .count {
   font-size: 12px;
-  background: #e5eddf;
+  background: #fff0ad;
   padding: 8px 12px;
   border-radius: 20px;
 }
@@ -225,11 +225,11 @@ a:focus-visible {
 }
 .duration span {
   display: block;
-  color: #afbeb1;
+  color: #86acd1;
   margin-top: 5px;
 }
 .wait {
-  border-left: 1px solid #dfe7df;
+  border-left: 1px solid #d5e2ee;
   padding-left: 20px;
 }
 .wait strong {
@@ -237,7 +237,7 @@ a:focus-visible {
   color: var(--green);
 }
 .trip-footer {
-  border-top: 1px solid #edf0e9;
+  border-top: 1px solid #dce8f4;
   padding-top: 12px;
   font-size: 11px;
   color: var(--muted);
@@ -265,7 +265,7 @@ a:focus-visible {
   margin: 12px 0;
 }
 .information {
-  background: #eaf0e4;
+  background: #ffffff;
 }
 .information h2 {
   margin-bottom: 18px;
@@ -275,7 +275,7 @@ a:focus-visible {
   line-height: 1.7;
 }
 footer {
-  border-top: 1px solid #dce4dc;
+  border-top: 1px solid #d5e2ee;
   padding: 25px 0 35px;
   display: flex;
   align-items: center;
@@ -401,7 +401,7 @@ select {
   gap: 0 18px;
 }
 .perego-line {
-  background: #08678a;
+  background: #07549c;
 }
 .perego-results {
   display: grid;
@@ -515,3 +515,35 @@ select,input[type="time"],button { font-size: 16px; min-height: 44px; }
 .discover-bus { display: block; margin: 18px 0; color: #07549c; font-weight: 800; font-size: 17px; }
 .discover-disclaimer { padding: 0 22px 18px; font-size: 13px; color: #e7f0fa; }
 @media(max-width:760px) { .discover { margin-top: 16px; } .discover-head { padding: 24px 20px 12px; } .discover-card { padding: 18px; margin: 8px 10px 12px; } .discover-options { gap: 8px; } .discover-tile { padding: 12px; } .discover-head p { font-size: 17px; } .hero { padding-top: 22px; } }
+
+/* LIVIGO unified white, blue and yellow design */
+:root { --green:#07549c; --ink:#101010; --muted:#333333; --paper:#ffffff; }
+body { background:#ffffff; color:#101010; }
+.brand,.service-nav a,.sources a,.trip-footer a,.perego-section a,.swap { color:#07549c; }
+.brand-arrow { color:#f4c928; }
+.hero h1 span { color:#07549c; }
+.notice,.school-warning,.leg-note { background:#fff5c4; border-color:#f4c928; color:#101010; }
+.panel,.trip,.discover-card,.information,.coffee,.perego-section { background:#ffffff; border-color:#07549c; }
+.demo-pill,.count { background:#f4c928; color:#101010; }
+.perego-line,.primary { background:#07549c; color:#ffffff; }
+input[type="search"],input[type="time"],select { width:100%;min-height:54px;padding:13px 15px;border:2px solid #07549c;border-radius:12px;background:#ffffff;color:#101010;font-size:17px; }
+input[type="search"]::placeholder { color:#333333; }
+input:focus-visible,button:focus-visible,select:focus-visible { outline:3px solid #f4c928;outline-offset:2px; }
+.planner label { font-size:17px; }
+.planner h2 { font-size:28px; }
+.quick-time { display:flex;gap:8px;margin:16px 0 8px; }
+.quick-time button { flex:1;border:2px solid #07549c;background:#ffffff;color:#07549c;border-radius:12px;padding:10px;font-weight:800; }
+.quick-time button.active { background:#f4c928;color:#101010;border-color:#f4c928; }
+.refresh-time { color:#07549c;background:#ffffff;border:0;text-decoration:underline;font-size:14px; }
+.advanced-filters { margin:8px 0 18px; }
+.advanced-filters summary { color:#07549c;font-weight:700;cursor:pointer; }
+.return-planner { border-top:2px solid #f4c928;margin-top:20px;padding-top:8px; }
+.return-results { margin-top:24px; }
+.return-trip { display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:15px 0;border-top:1px solid #07549c; }
+.return-trip strong { font-size:24px;color:#07549c; }
+.return-trip span { font-size:14px; }
+.stop-alternatives { display:flex;flex-direction:column;gap:8px;margin-top:15px; }
+.stop-alternatives button { border:2px solid #07549c;background:#ffffff;color:#07549c;border-radius:12px;padding:12px;text-align:left; }
+.discover-collapsed { margin-bottom:10px; }
+footer { border-top:3px solid #f4c928; }
+@media(max-width:760px){.planner {padding:20px 16px}.columns {gap:16px}.hero {padding:20px 0}.hero h1 {font-size:36px}.times {flex-wrap:wrap}}
