@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import PeregoPlanner from "@/components/perego-planner";
+import DiscoverWelcome from "@/components/discover-welcome";
 import { dataset, lines, sources, winterConfirmation } from "@/data/transport";
 import { findJourneys, formatTime } from "@/lib/journeys";
 
@@ -63,6 +64,7 @@ export default function Home() {
         <a href="#perego">Livigno–Tirano</a>
         <a href="#fonti">PDF e fonti</a>
       </nav>
+      <DiscoverWelcome />
       <section className="hero">
         <div className="eyebrow">IL TUO PROSSIMO PASSO, PIÙ SEMPLICE</div>
         <h1>

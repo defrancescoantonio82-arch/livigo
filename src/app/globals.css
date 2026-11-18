@@ -1,9 +1,9 @@
 @import "tailwindcss";
 :root {
-  --ink: #163c36;
-  --muted: #60766e;
-  --green: #12624e;
-  --paper: #f5f7f2;
+  --ink: #17334f;
+  --muted: #50677d;
+  --green: #07549c;
+  --paper: #ffffff;
 }
 * {
   box-sizing: border-box;
@@ -482,3 +482,36 @@ select {
 #perego {
   scroll-margin-top: 20px;
 }
+
+/* LIVIGO Discover: accessible mobile-first blue, yellow and white identity */
+body { font-size: 17px; line-height: 1.5; }
+.location,.eyebrow { font-size: 13px; }
+.hint,.coffee p,.legs,.trip-footer,.trip-top .hint,.service-nav,footer p,footer small { font-size: 14px; }
+label,.perego-section summary { font-size: 16px; }
+select,input[type="time"],button { font-size: 16px; min-height: 44px; }
+.demo-pill,.count { background: #fff0ad; }
+.coffee,.information { background: #edf5fc; }
+.panel,.trip { border-color: #d5e2ee; }
+.discover { margin: 24px 0 36px; border-radius: 24px; overflow: hidden; background: #07549c; color: white; }
+.discover-head { padding: 28px 28px 16px; }
+.discover-kicker { color: #ffe066; font-size: 13px; font-weight: 800; letter-spacing: 1px; }
+.discover-head h2 { font-size: clamp(32px,6vw,48px); line-height: 1.1; margin: 12px 0; }
+.discover-head p { font-size: 18px; max-width: 650px; }
+.discover-card { background: #fff; color: #17334f; border-radius: 20px; margin: 8px 18px 18px; padding: 24px; }
+.discover-card h3 { font-size: 25px; margin: 8px 0 20px; }
+.discover-progress { color: #50677d; font-size: 14px; font-weight: 700; }
+.discover-choice { display: block; width: 100%; text-align: left; padding: 15px; border: 2px solid #d5e2ee; background: white; border-radius: 12px; margin: 8px 0; font-weight: 600; }
+.discover-choice.selected { border-color: #07549c; background: #e9f3fc; }
+.discover-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.discover-options .discover-choice { margin: 0; }
+.discover-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 20px; }
+.discover-next { border: 0; border-radius: 12px; background: #f6cb28; color: #17334f; font-weight: 800; padding: 13px 20px; }
+.discover-secondary,.discover-skip { background: transparent; border: 0; color: #07549c; font-weight: 700; padding: 10px; }
+.discover-skip { margin-left: auto; }
+.discover-tile { border: 1px solid #d5e2ee; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 7px; }
+.discover-tile span { font-size: 30px; }
+.discover-tile small,.discover-status { color: #50677d; font-size: 14px; }
+.discover-card > .discover-next { margin-top: 20px; }
+.discover-bus { display: block; margin: 18px 0; color: #07549c; font-weight: 800; font-size: 17px; }
+.discover-disclaimer { padding: 0 22px 18px; font-size: 13px; color: #e7f0fa; }
+@media(max-width:760px) { .discover { margin-top: 16px; } .discover-head { padding: 24px 20px 12px; } .discover-card { padding: 18px; margin: 8px 10px 12px; } .discover-options { gap: 8px; } .discover-tile { padding: 12px; } .discover-head p { font-size: 17px; } .hero { padding-top: 22px; } }
