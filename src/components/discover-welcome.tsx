@@ -24,3 +24,4 @@ export default function DiscoverWelcome() {
     </div> : <div className="discover-card"><h3>Cosa vuoi fare oggi?</h3><div className="discover-options">{options.filter(o=>prefs.interests.length===0||prefs.interests.includes(o.id)).map(o=><div className="discover-tile" key={o.id}><span>{o.emoji}</span><strong>{o.label}</strong><small>Itinerari in preparazione</small></div>)}</div><button className="discover-next" onClick={locate}>⌖ Esplora vicino a me</button><p role="status" className="discover-status">{position}</p><a className="discover-bus" href="#urbano">🚌 Cerca un autobus e consulta gli orari →</a><button className="discover-skip" onClick={()=>setStep(0)}>Modifica preferenze</button></div>}
     <p className="discover-disclaimer">LIVIGO è un progetto indipendente. Suggerimenti e itinerari saranno attivati solo con dati verificati; nessuna posizione viene memorizzata da questa funzione.</p>
   </section>;
+}
