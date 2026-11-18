@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import PeregoPlanner from "@/components/perego-planner";
-import DiscoverWelcome from "@/components/discover-welcome";
 import { dataset, lines, sources, winterConfirmation } from "@/data/transport";
 import { findJourneys, formatTime } from "@/lib/journeys";
 
@@ -13,7 +12,7 @@ export default function Home() {
   const [useNow, setUseNow] = useState(true);
   const [nowTime, setNowTime] = useState<string | null>(null);
   const [returnTime, setReturnTime] = useState("18:00");
-  const [showReturn, setShowReturn] = useState(false);
+  const [showReturn, setShowReturn] = useState(true);
   const [lineId, setLineId] = useState("");
   const [school, setSchool] = useState(false);
   const [coffee, setCoffee] = useState(false);
@@ -81,30 +80,10 @@ export default function Home() {
         <a href="#perego">Livigno–Tirano</a>
         <a href="#fonti">PDF e fonti</a>
       </nav>
-      <div className="discover-collapsed"><DiscoverWelcome /></div>
-      <section className="hero">
-        <div className="eyebrow">IL TUO PROSSIMO PASSO, PIÙ SEMPLICE</div>
-        <h1>
-          Goditi Livigno.
-          <br />
-          <span>Al viaggio pensiamo noi.</span>
-        </h1>
-        <p>Consulta le corse programmate. E prenditi il tempo per un caffè.</p>
-        <div className="mountains" aria-hidden="true">
-          ╱╲ &nbsp; ╱╲ &nbsp; ╱╲
-        </div>
-      </section>
-      <aside className="notice">
-        <strong>Orari Silvestri: Blu, Verde e Trepalle.</strong> PDF estivi dal
-        31/08/2026. Orari invariati per l’inverno 2026–2027 secondo la conferma
-        ricevuta dall’utente il 17/11/2026. Potenziamenti non ancora inclusi.
-        Nessun dato in tempo reale. <a href="#fonti">Consulta fonti e limiti</a>
-        .
-      </aside>
-      <div id="urbano" className="columns">
-        <section className="panel planner">
-          <div className="eyebrow">ORGANIZZA IL TUO SPOSTAMENTO</div>
-          <h2>Dove vuoi andare?</h2>
+      <section className="journey-first" aria-label="Cerca il tuo viaggio">
+        <div className="journey-first-head"><div className="eyebrow">LIVIGO · IL TUO VIAGGIO</div><h1>Dove vuoi andare?</h1><p>Scrivi due fermate. Trova l’andata e, se vuoi, il ritorno.</p></div>
+                <section className="panel planner first-planner">
+          
           <details className="advanced-filters"><summary>Filtri avanzati · linea</summary><label htmlFor="line">Linea</label>
           <select
             id="line"
@@ -146,7 +125,7 @@ export default function Home() {
             Consulta le tabelle: non è una previsione di arrivo e non verifica
             il calendario per una data specifica.
           </p>
-          <label className="check">
+          <details className="planner-extras"><summary>Altre opzioni · pausa bar e corse scolastiche</summary><label className="check">
             <input
               type="checkbox"
               checked={school}
@@ -186,12 +165,36 @@ export default function Home() {
               </label>
             )}
           </div>
+          </details>
           <div className="return-planner"><label className="check"><input type="checkbox" checked={showReturn} onChange={(e)=>setShowReturn(e.target.checked)}/> ↩ Cerca anche il ritorno</label>{showReturn && <><label htmlFor="return-time">Ritorno dalle</label><input id="return-time" type="time" value={returnTime} onChange={(e)=>setReturnTime(e.target.value)}/></>}</div>
+          <a className="find-bus" href="#departures" onClick={() => { if(useNow) refreshNow(); }}>Cerca autobus →</a>
           <p className="hint">
             Il filtro si aggiorna automaticamente. La pausa si calcola alla
             partenza; nessun bar reale è associato.
           </p>
         </section>
+
+      </section>
+      <section className="hero" aria-label="Scopri Livigno">
+        <div className="eyebrow">IL TUO PROSSIMO PASSO, PIÙ SEMPLICE</div>
+        <h1>
+          Goditi Livigno.
+          <br />
+          <span>Al viaggio pensiamo noi.</span>
+        </h1>
+        <p>Consulta le corse programmate. E prenditi il tempo per un caffè.</p>
+        <div className="mountains" aria-hidden="true">
+          ╱╲ &nbsp; ╱╲ &nbsp; ╱╲
+        </div>
+      </section>
+      <aside className="notice">
+        <strong>Orari Silvestri: Blu, Verde e Trepalle.</strong> PDF estivi dal
+        31/08/2026. Orari invariati per l’inverno 2026–2027 secondo la conferma
+        ricevuta dall’utente il 17/11/2026. Potenziamenti non ancora inclusi.
+        Nessun dato in tempo reale. <a href="#fonti">Consulta fonti e limiti</a>
+        .
+      </aside>
+      <div id="urbano" className="columns">
         <section className="departures" aria-labelledby="departures">
           <div className="results-heading">
             <div>
