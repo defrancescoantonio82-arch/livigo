@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import PeregoPlanner from "@/components/perego-planner";
 import DiscoverWelcome from "@/components/discover-welcome";
@@ -44,6 +44,7 @@ export default function Home() {
     : [];
 
 
+  useEffect(() => { setNowTime(new Intl.DateTimeFormat("en-GB", {timeZone:"Europe/Rome",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(new Date())); }, []);
   function localClock() { return new Intl.DateTimeFormat("en-GB", {timeZone:"Europe/Rome",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(new Date()); }
   function refreshNow() { setNowTime(localClock()); setUseNow(true); }
   function locate() {
