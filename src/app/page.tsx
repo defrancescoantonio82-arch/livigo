@@ -7,9 +7,9 @@ import { dataset, lines, sources, winterConfirmation } from "@/data/transport";
 import { findJourneys, formatTime } from "@/lib/journeys";
 
 export default function Home() {
-  const [from, setFrom] = useState("LIV101");
-  const [to, setTo] = useState("LIV022");
-  const [time, setTime] = useState("10:00");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [time, setTime] = useState("14:00");
   const [lineId, setLineId] = useState("");
   const [school, setSchool] = useState(false);
   const [coffee, setCoffee] = useState(false);
@@ -18,17 +18,23 @@ export default function Home() {
   const [hours, minutes] = time.split(":").map(Number);
   const earliest = hours * 60 + minutes + (coffee ? pause : 0);
   const validTime = /^\d{2}:\d{2}$/.test(time) && Number.isFinite(earliest);
-  const results = validTime
-    ? findJourneys(dataset, from, to, earliest, {
+  const fromStop = dataset.stops.find((s) => s.name.toLocaleLowerCase("it").trim() === from.toLocaleLowerCase("it").trim());
+  const toStop = dataset.stops.find((s) => s.name.toLocaleLowerCase("it").trim() === to.toLocaleLowerCase("it").trim());
+  const results = validTime && fromStop && toStop
+    ? findJourneys(dataset, fromStop.id, toStop.id, earliest, {
         includeSchoolOnly: school,
         lineId,
       })
     : [];
   const stopOptions = dataset.stops.map((s) => (
-    <option key={s.id} value={s.id}>
-      {s.name} · {s.id}
-    </option>
+    <option key={s.id} value={s.name} />
   ));
+  const nearbyAlternatives = !results.length && fromStop && toStop
+    ? dataset.stops
+        .filter((s) => s.id !== toStop.id && s.name.toLocaleLowerCase("it").replace(/fr\\.|\\(off\\)/g, "").trim() === toStop.name.toLocaleLowerCase("it").replace(/fr\\.|\\(off\\)/g, "").trim())
+        .filter((s) => findJourneys(dataset, fromStop.id, s.id, earliest, { includeSchoolOnly: school, lineId }).length > 0)
+    : [];
+
 
   function locate() {
     if (!navigator.geolocation) {
@@ -101,28 +107,18 @@ export default function Home() {
               </option>
             ))}
           </select>
-          <label htmlFor="from">Partenza</label>
-          <select
-            id="from"
-            value={from}
-            onChange={(e) => setFrom(e.target.value)}
-          >
-            {stopOptions}
-          </select>
-          <button
-            className="swap"
-            onClick={() => {
-              setFrom(to);
-              setTo(from);
-            }}
-            aria-label="Scambia partenza e destinazione"
-          >
-            ⇅ Scambia fermate
-          </button>
-          <label htmlFor="to">Destinazione</label>
-          <select id="to" value={to} onChange={(e) => setTo(e.target.value)}>
-            {stopOptions}
-          </select>
+          <label htmlFor="from">Da dove parti?</label>
+          <input id="from" type="search" list="livigo-stops" value={from}
+            placeholder="Scrivi la fermata di partenza"
+            autoComplete="off" onChange={(e) => setFrom(e.target.value)} />
+          <button className="swap" onClick={() => { setFrom(to); setTo(from); }}
+            aria-label="Scambia partenza e destinazione">⇅ Inverti percorso</button>
+          <label htmlFor="to">Dove vuoi arrivare?</label>
+          <input id="to" type="search" list="livigo-stops" value={to}
+            placeholder="Scrivi la fermata di arrivo"
+            autoComplete="off" onChange={(e) => setTo(e.target.value)} />
+          <datalist id="livigo-stops">{stopOptions}</datalist>
+          <p className="hint">Scrivi il nome e scegli una fermata suggerita. «fr.» indica il lato opposto della strada.</p>
           <label htmlFor="time">Partenze dalle</label>
           <input
             id="time"
@@ -205,13 +201,13 @@ export default function Home() {
                 La pausa termina il giorno successivo. Seleziona un orario
                 precedente: la ricerca non estende le corse al giorno seguente.
               </div>
-            ) : from === to ? (
+            ) : !fromStop || !toStop ? (\n              <div className="panel empty">Scrivi partenza e destinazione e seleziona i nomi completi suggeriti. Nessuna ricerca viene effettuata finché entrambe le fermate non sono riconosciute.</div>\n            ) : fromStop.id === toStop.id ? (
               <div className="panel empty">Scegli due fermate diverse.</div>
             ) : results.length === 0 ? (
               <div className="panel empty">
                 Nessuna corsa diretta trovata nelle tabelle per questi filtri.
                 Prova un altro orario o un’altra linea. Non vengono calcolati
-                cambi o collegamenti del giorno successivo.
+                cambi o collegamenti del giorno successivo.\n                {nearbyAlternatives.length > 0 && <div className="stop-alternatives"><strong>Forse intendevi il lato opposto?</strong>{nearbyAlternatives.map((s) => <button key={s.id} onClick={() => setTo(s.name)}>Cerca per {s.name}</button>)}</div>}
               </div>
             ) : (
               results.map((r, i) => {
