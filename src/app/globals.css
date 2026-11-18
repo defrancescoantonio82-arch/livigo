@@ -547,3 +547,18 @@ input:focus-visible,button:focus-visible,select:focus-visible { outline:3px soli
 .discover-collapsed { margin-bottom:10px; }
 footer { border-top:3px solid #f4c928; }
 @media(max-width:760px){.planner {padding:20px 16px}.columns {gap:16px}.hero {padding:20px 0}.hero h1 {font-size:36px}.times {flex-wrap:wrap}}
+
+/* Primary airport-style search is the first screen */
+.journey-first { background:#07549c;color:#ffffff;border-radius:22px;padding:24px;margin:20px 0 24px; }
+.journey-first-head h1 {font-size:clamp(32px,6vw,50px);line-height:1.1;margin:10px 0;}
+.journey-first-head p {font-size:17px;color:#ffffff;margin-bottom:16px;}
+.journey-first-head .eyebrow {color:#f4c928;}
+.first-planner {max-width:680px;color:#101010;background:#ffffff;border:0;padding:22px;}
+.first-planner .advanced-filters {order:10;}
+.first-planner input[type=search] {background:#ffffff;border:2px solid #07549c;}
+.first-planner .return-planner {background:#ffffff;border:2px solid #f4c928;border-radius:12px;padding:12px;margin:16px 0;}
+.first-planner .planner-extras {border-top:1px solid #07549c;margin-top:16px;padding-top:10px;}
+.first-planner .planner-extras summary {color:#07549c;font-weight:700;cursor:pointer;}
+.find-bus {display:block;text-align:center;text-decoration:none;background:#f4c928;color:#101010;border-radius:12px;padding:17px 10px;font-size:19px;font-weight:900;margin-top:16px;}
+.find-bus:focus-visible {outline:3px solid #07549c;}
+@media(max-width:760px){.journey-first {margin:12px -10px 20px;padding:18px 12px;border-radius:18px;}.first-planner {padding:16px 12px;}.journey-first-head h1 {font-size:34px;}.journey-first-head p {font-size:16px;}}
